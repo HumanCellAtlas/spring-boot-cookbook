@@ -21,3 +21,7 @@ task wrapper(type: Wrapper) {
     gradleVersion = '4.0.2'
 }
 
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}

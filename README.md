@@ -123,9 +123,6 @@ plugins {
 ```
 To use SonarQube further configuration is required in a local [gradle.properties](example/gradle.properties) file.
 
-## gradle.properties
-[gradle.properties](example/gradle.properties)
-
 ### SSH Plugin
 The [SSH Plugin](https://gradle-ssh-plugin.github.io/) allows us to remotely call execute commands on remote servers using SSH. We do this as part of the deployment process.
 
@@ -140,10 +137,40 @@ plugins {
 ## Gradle Wrapper
 Gradle Wrapper gets rid of the need to have Gradle installed on a machine before being able to build a project. It lets us specify a specific version of Gradle and then generates a wrapper script that when run automatically downloads the correct version of Gradle for the project. This avoids also avoids incompatability with different Gradle version.
 
-If is added as a block in [build.gradle](example/build.gradle) with:
+It is added as a block in [build.gradle](example/build.gradle) with:
 
 ```groovy
 task wrapper(type: Wrapper) {
     gradleVersion = '4.0.2'
 }
 ```
+
+## Dependencies
+[Spring Boot Starters](https://github.com/spring-projects/spring-boot/tree/master/spring-boot-starters) are bundles of dependencies that make it more straight forward to get the correct dependencies for a Spring Boot project. We typically use the following bundles.
+
+### Spring Boot Starter Web
+The Spring Boot Starter Web dependencies provides the core of Spring, web libraries including support for JSON serialisation, logging and an embedded Tomcat server. This is an opionated default of what is needed for a Spring Boot Web application.
+
+It is added to the dependencies block in [build.gradle](example/build.gradle) with:
+
+```groovy
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+}
+``` 
+
+Note how no version number is provided. This is handled automatically by the Spring Boot Plugin's dependency management.
+
+### Spring Boot Starter Test
+The Spring Boot Starter Test dependencies provide a set of testing libraries including JUnit and the Mockito mocking framework.
+
+It is added to the dependencies block in [build.gradle](example/build.gradle) with:
+
+```groovy
+dependencies {
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+``` 
+
+## gradle.properties
+[gradle.properties](example/gradle.properties)
