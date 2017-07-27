@@ -230,3 +230,29 @@ The artifactoryUsername and artifactoryPassword need to be configuration is requ
 
 ## gradle.properties
 [gradle.properties](example/gradle.properties)
+
+# Java Application
+
+## Application.java
+For consistency the main class of a Spring Boot application should be called [Application.java](example/src/main/java/uk/ac/ebi/ena/example/Application.java). 
+
+This is inline with the [Getting Started examples on spring.io](https://spring.io/guides/gs/spring-boot/).
+
+Monit is the tool we use for monitoring of our deployed application processes. To do this monit needs to know the PID of the running process. We get Spring Boot to generate this using the [ApplicationPidFileWriter](http://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/system/ApplicationPidFileWriter.html).
+
+For the deployment scripts to work this needs to be named <project-name>.pid. So for a project named ena-example the main method in the [Application.java](example/src/main/java/uk/ac/ebi/ena/example/Application.java) will look like this:
+
+```java
+@SpringBootApplication
+public class Application {
+
+	private static String PID_FILE = "ena-example.pid";
+
+	public static void main(String[] args) throws Exception {
+		SpringApplication springApplication = new SpringApplication(Application.class);
+		springApplication.addListeners(new ApplicationPidFileWriter(PID_FILE));
+		springApplication.run(args);
+	}
+
+}
+```
