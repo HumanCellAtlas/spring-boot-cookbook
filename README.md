@@ -287,7 +287,7 @@ dependencies {
 }
 ```
 
-*Step 2*: In [application.properties](example/src/main/resources/application.properties) add two lines:
+*Step 2*: In [application.properties](example/src/main/resources/application.properties) add three lines:
 
 ```properties
 spring.boot.admin.url=http://ena-dev:9900
