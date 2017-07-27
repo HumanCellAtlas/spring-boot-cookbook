@@ -172,5 +172,61 @@ dependencies {
 }
 ``` 
 
+## Publication
+
+### Manifest
+We use Gradle to create a META-INF/MANIFEST file in the generated jar. this contains as a minimum the project name, version and source capatibility. This is used in the deployment process to verify that the correct artifact is being used.
+
+It is added as a block in [build.gradle](example/build.gradle) with:
+
+```groovy
+jar.manifest {
+    attributes('Implementation-Title': project.name,
+            'Implementation-Version': project.version,
+            'Source-Compatibility': project.sourceCompatibility
+    )
+}
+```
+
+### sourceJar
+As well as the binary we also publish a source code jar to the Artifactory. This means that when someone else depends on our library they can download and examine the source code.
+
+The task to do this is added in [build.gradle](example/build.gradle) with:
+
+```groovy
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
+```
+
+### Artifactory Publishing
+The block in [build.gradle](example/build.gradle) to enable Artifactory publishing is as follows:
+
+```groovy
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username artifactoryUsername
+                password artifactoryPassword
+            }
+            url "http://ena-dev:8081/artifactory/libs-release-local"
+        }
+    }
+}
+```
+
+This specifies to publish both the artifact and the generated source jar to our Artifactory server in the Maven format.
+
+The artifactoryUsername and artifactoryPassword need to be configuration is required in a local [gradle.properties](example/gradle.properties) file for publication to be successful. This keeps sensitive passwords out of the source code.
+
 ## gradle.properties
 [gradle.properties](example/gradle.properties)

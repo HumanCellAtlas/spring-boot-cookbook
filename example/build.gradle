@@ -25,3 +25,34 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+jar.manifest {
+    attributes('Implementation-Title': project.name,
+            'Implementation-Version': project.version,
+            'Source-Compatibility': project.sourceCompatibility
+    )
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username artifactoryUsername
+                password artifactoryPassword
+            }
+            url "http://ena-dev:8081/artifactory/libs-release-local"
+        }
+    }
+}
