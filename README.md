@@ -256,6 +256,56 @@ public class Application {
 
 }
 ```
+## Spring Boot Actuator
+[Spring Boot Actuator](https://spring.io/guides/gs/actuator-service/) includes a number of additional features to help us monitor and manage our applications. These include the health of the application and memory usage as examples.
+
+To add it we need to add the dependency into the dependencies block in [build.gradle](example/build.gradle).
+```groovy
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+}
+```
+
+## Spring Boot Admin Client
+[Spring Boot Admin](https://github.com/codecentric/spring-boot-admin) is a simple third-party, web-based admin client for monitoring Spring Boot applications.
+
+We host a version of the (Spring Boot Admin Server)[http://ena-dev:9900/] on our development tools server.
+```groovy
+dependencies {
+    compile('de.codecentric:spring-boot-admin-starter-client:1.3.7')
+}
+```
+
+By adding a dependency on the client library and adding some basic configuration any Spring Boot app can register with the server. The server then monitors the application through the Spring Actuator endpoints.
+
+### Spring Boot Admin Client Configuration ###
+*Step 1*: Add the Spring Boot Admin Client dependency to the dependencies block in [build.gradle](example/build.gradle).
+
+```groovy
+dependencies {
+    compile('de.codecentric:spring-boot-admin-starter-client:1.3.7')
+}
+```
+
+*Step 2*: In [application.properties](example/src/main/resources/application.properties) add two lines:
+
+```properties
+spring.boot.admin.url=http://ena-dev:9900
+spring.boot.admin.client.name=${project.name}
+info.version=${version}
+```
+* The first is the URL of the Spring Boot Admin Server
+* The second is a place holder that gets populated with the name of the project in Gradle
+* The third is a place holder for the current version of the project from Gradle
+
+*Step 3*: To make sure that the place holders get populated by Gradle we need to add the following task to [build.gradle](example/build.gradle). 
+```groovy
+processResources {
+    filesMatching('application.properties') {
+        expand(project.properties)
+    }
+}
+```
 
 # README.md
 The project must have a [README.md](example/README.md) file in the root directory. This should contain the following:
