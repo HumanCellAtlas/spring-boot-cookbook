@@ -256,3 +256,12 @@ public class Application {
 
 }
 ```
+
+# README.md
+The project must have a [README.md](example/README.md) file in the root directory. This should contain the following:
+
+- Synopsis: At the top of the file there should be a short introduction and/ or overview that explains **what** the project is.
+- How to build
+- How to run
+- How to publish 
+- Hot to deploy
