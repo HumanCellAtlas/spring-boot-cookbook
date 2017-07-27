@@ -240,7 +240,7 @@ This is inline with the [Getting Started examples on spring.io](https://spring.i
 
 Monit is the tool we use for monitoring of our deployed application processes. To do this monit needs to know the PID of the running process. We get Spring Boot to generate this using the [ApplicationPidFileWriter](http://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/system/ApplicationPidFileWriter.html).
 
-For the deployment scripts to work this needs to be named <project-name>.pid. So for a project named ena-example the main method in the [Application.java](example/src/main/java/uk/ac/ebi/ena/example/Application.java) will look like this:
+For the deployment scripts to work this needs to be named \<project-name\>.pid. So for a project named ena-example the main method in the [Application.java](example/src/main/java/uk/ac/ebi/ena/example/Application.java) will look like this:
 
 ```java
 @SpringBootApplication
