@@ -1,13 +1,23 @@
+plugins {
+    id 'org.springframework.boot' version '1.5.4.RELEASE'
+    id 'org.sonarqube' version '2.5'
+    id 'org.hidetake.ssh' version '2.7.0'
+}
+
 group = 'uk.ac.ebi.ena.ena-example'
 version = '1.0.0'
 sourceCompatibility = 1.8
 
 repositories {
     mavenLocal()
-    maven{ url "http://ena-dev:8081/artifactory/all" }
+    maven { url "http://ena-dev:8081/artifactory/all" }
 }
 
 apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'maven-publish'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.0.2'
+}
 

@@ -88,8 +88,8 @@ It is added to [build.gradle](example/build.gradle) with:
 apply plugin: 'jacoco'
 ```
 
-### Maven Publish Plugin
-The [Maven Publish plugin](https://docs.gradle.org/current/userguide/publishing_maven.html) provides the ability to publish in the Maven format. We use this for publishing artifacts to artifactory.
+### Maven-publish Plugin
+The [Maven Publish plugin](https://docs.gradle.org/current/userguide/publishing_maven.html) provides the ability to publish in the Maven format. We use this for publishing artifacts to Artifactory.
 
 It is added to [build.gradle](example/build.gradle) with:
 
@@ -98,10 +98,10 @@ apply plugin: 'maven-publish'
 ```
 
 ### Spring Boot Plugin
-The Spring Boot Gradle plugin provides Spring Boot support to Gradle. As well as allowing us to package applications as executable jars it also deals with dependency management of Spring related dependencies.
-This means that when you sepecify the Spring Boot version all other Spring dependency versions are worked out for you so that they are compatable with each other.
+The [Spring Boot Gradle plugin](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-gradle-plugin.html) provides Spring Boot support to Gradle. As well as allowing us to package applications as executable jars it also deals with dependency management of Spring related dependencies.
+This means that when we specify the Spring Boot version all other Spring dependency versions are worked out for you so that they are compatable with each other.
 
-To use the Spring Boot Gradle Plugin configure it using the plugins block:
+It is added to the plugin block of [build.gradle](example/build.gradle) with:
 
 ```groovy
 plugins {
@@ -109,4 +109,41 @@ plugins {
 }
 ```
 
-[Detailed instructions for setting up the Spring Boot Gradle plugin](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-gradle-plugin.html). 
+### SonarQube Plugin
+The [SonarQube plugin](https://plugins.gradle.org/plugin/org.sonarqube) enables SonarQube analysis to our [Sonar](http://ena-dev:9000/) server.
+
+This uses static analysis to highlight bugs and improvements from rules defined on the server. It also runs test coverage and collects statistics such as lines of code.
+
+It is added to the plugin block of [build.gradle](example/build.gradle) with:
+
+```groovy
+plugins {
+	id 'org.sonarqube" version '2.5'
+}
+```
+To use SonarQube further configuration is required in a local [gradle.properties](example/gradle.properties) file.
+
+## gradle.properties
+[gradle.properties](example/gradle.properties)
+
+### SSH Plugin
+The [SSH Plugin](https://gradle-ssh-plugin.github.io/) allows us to remotely call execute commands on remote servers using SSH. We do this as part of the deployment process.
+
+It is added to the plugin block of [build.gradle](example/build.gradle) with:
+
+```groovy
+plugins {
+	id 'org.hidetake.ssh' version '2.7.0'
+}
+```
+
+## Gradle Wrapper
+Gradle Wrapper gets rid of the need to have Gradle installed on a machine before being able to build a project. It lets us specify a specific version of Gradle and then generates a wrapper script that when run automatically downloads the correct version of Gradle for the project. This avoids also avoids incompatability with different Gradle version.
+
+If is added as a block in [build.gradle](example/build.gradle) with:
+
+```groovy
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.0.2'
+}
+```
