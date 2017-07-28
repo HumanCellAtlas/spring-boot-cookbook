@@ -266,6 +266,8 @@ dependencies {
 }
 ```
 
+In recent version of Spring Boot [the actuator requires authentication by default](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-monitoring.html ). If you are using Spring Security this is not a problem  
+
 ## Spring Boot Admin Client
 [Spring Boot Admin](https://github.com/codecentric/spring-boot-admin) is a simple third-party, web-based admin client for monitoring Spring Boot applications.
 
