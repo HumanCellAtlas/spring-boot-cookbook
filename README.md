@@ -317,7 +317,7 @@ processResources {
 # Logging
 We have a [Graylog server](http://ena-log:9000/search) that acts a a repository for all our log messages so we can have a single view into the workings of the whole system.
 
-By default Spring Boot provides Logback for logging. This is made available the the [SLF4J](https://www.slf4j.org/) abstraction.
+By default Spring Boot provides Logback for logging. This is made available through the [SLF4J](https://www.slf4j.org/) abstraction.
 ## Graylog Logging Configuration ##
 *Step 1*: Add the Logback GELF dependency. This enables Logback messages to be converted into GELF format and sent to the Graylog server. Add the dependency to the dependencies block in [build.gradle](example/build.gradle).
 ```groovy
@@ -365,6 +365,48 @@ In the [application-default.properties](example/src/main/resources/application-d
 spring.boot.admin.auto-deregistration=true
 ```
 This tells the Spring Boot Admin Server to remove the application from the list when it closes to stop the list becoming cluttered with closed, temporary instances of the application.
+
+# Deployment
+Deployment involves calling a script on the target server with parameter. Each server has on it two standard scripts.
+
+## Deployment Script
+[generic-deploy.sh](server-scripts/generic-deploy.sh) 
+This script may be called on the server from deploying previous versions but it would normally be called by the deploy tasks in Gradle.
+
+It takes the following parameters:
+* name of the application to deploy
+* version of to deploy
+* port the application is set to run on
+* url path the application will be deployed to
+
+For example to deploy ena-example version 1.0.0 running on port 8080 at a url of /example the call to the script on the server would be:
+```bash
+./generic-deploy.sh ena-example 1.0.0 8080 /example
+```
+The script then does the following:
+* Downloads the correct version of the jar from Artifactory.
+* Checks the the jar is above 10MB.
+* Creates a symbolic link between ena-<name>-current.jar and the versioned jar.
+* Restarts the application process using Monit.
+* Expands the META-INF/MANIFEST.MF of the deployed jar and checks the version matches the required version.
+* Waits 10 seconds.
+* Requests the applications health and info endpoints and displays the results.
+
+If any of these steps fail an error message will be displayed and the script will go no further. If Monit has not been set up the script will prompt with the correct Monit configuration.
+
+## Execution Script
+[generic-control.sh](server-scripts/generic-control.sh) is used by Monit to start and stop the application. 
+This script should not be needed to be run manually as it is meant for calling by Monit.
+
+It takes three parameters
+* Action (start|stop)
+* name of application
+* environment (Spring profile to use)
+
+For example to start the ena-example application in test configuration use:
+```bash
+./generic-control.sh ena-example test
+```
 
 # README.md
 The project must have a [README.md](example/README.md) file in the root directory. This should contain the following:
