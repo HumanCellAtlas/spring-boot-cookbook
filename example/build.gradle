@@ -25,6 +25,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('de.codecentric:spring-boot-admin-starter-client:1.3.7')
     compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('de.siegmar:logback-gelf:1.0.4')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

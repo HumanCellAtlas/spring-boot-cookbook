@@ -266,7 +266,11 @@ dependencies {
 }
 ```
 
-In recent version of Spring Boot [the actuator requires authentication by default](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-monitoring.html ). If you are using Spring Security this is not a problem  
+In recent version of Spring Boot [the actuator requires authentication by default](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-monitoring.html ). 
+If we are Spring Security in our project we can configure this however if not, and we want to make the actuator endpoints available we need to disable management security by adding this line to [application.properties](example/src/main/resources/application.properties).
+```
+management.security.enabled=false
+```
 
 ## Spring Boot Admin Client
 [Spring Boot Admin](https://github.com/codecentric/spring-boot-admin) is a simple third-party, web-based admin client for monitoring Spring Boot applications.
@@ -290,7 +294,6 @@ dependencies {
 ```
 
 *Step 2*: In [application.properties](example/src/main/resources/application.properties) add three lines:
-
 ```properties
 spring.boot.admin.url=http://ena-dev:9900
 spring.boot.admin.client.name=${project.name}
@@ -308,6 +311,24 @@ processResources {
     }
 }
 ```
+# Logging
+We have a [Graylog server](http://ena-log:9000/search) that acts a a repository for all our log messages so we can have a single view into the workings of the whole system.
+
+By default Spring Boot provides Logback for logging. This is made available the the [SLF4J](https://www.slf4j.org/) abstraction.
+## Graylog Logging Configuration ##
+*Step 1*: Add the Logback GELF dependency. This enables Logback messages to be converted into GELF format and sent to the Graylog server. Add the dependency to the dependencies block in [build.gradle](example/build.gradle).
+```groovy
+dependencies {
+    compile('de.siegmar:logback-gelf:1.0.4')
+}
+```
+*Step 2*: Add the [logback-spring.xml](example/src/main/resources/logback-spring.xml) configuration file to the project's [src/main/resources](example/src/main/resources). This file is pre-configured with the correct settings for our internal Graylog server.
+
+*Step 3*: Add the following line into [application.properties](example/src/main/resources/application.properties) to define the file name and path of the local logging file to store on the server.
+```properties
+logging.file=logs/ena-<name>.log
+```
+Ideally the project.name would be used to populate the log file name automatically instead of having to specify it but this does not appear to work.
 
 # README.md
 The project must have a [README.md](example/README.md) file in the root directory. This should contain the following:

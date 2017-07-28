@@ -84,3 +84,5 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 /example/ena-example.pid
+/logs/
+/ena-example.pid
