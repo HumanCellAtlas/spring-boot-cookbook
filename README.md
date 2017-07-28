@@ -258,6 +258,7 @@ public class Application {
 ```
 
 # Monitoring
+
 ## Spring Boot Actuator
 [Spring Boot Actuator](https://spring.io/guides/gs/actuator-service/) includes a number of additional features to help us monitor and manage our applications. These include the health of the application and memory usage as examples.
 
