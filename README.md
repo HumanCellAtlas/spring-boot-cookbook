@@ -407,6 +407,19 @@ This tells the Spring Boot Admin Server to remove the application from the list 
 # Deployment
 Deployment involves calling a script on the target server with parameter. Each server has on it two standard scripts.
 
+## Configuring ports and paths
+If deployment is to a shared VM so it is important to define a port and url for the application so it does not clash with others.
+
+To do this we add the following lines to [application.properties](example/src/main/resources/application.properties):
+```properties
+server.port=1234
+server.contextPath=/example
+```
+This sets the application to run on port 1234 and to have a base url of /example.
+
+If this was run locally the web address would be:
+[http://localhost:1234/example](http://localhost:1234/example)
+
 ## Deployment Script
 [generic-deploy.sh](server-scripts/generic-deploy.sh) 
 This script may be called on the server from deploying previous versions but it would normally be called by the deploy tasks in Gradle.
@@ -417,9 +430,9 @@ It takes the following parameters:
 * port the application is set to run on
 * url path the application will be deployed to
 
-For example to deploy ena-example version 1.0.0 running on port 8080 at a url of /example the call to the script on the server would be:
+For example to deploy ena-example version 1.0.0 running on port 1234 at a url of /example the call to the script on the server would be:
 ```bash
-./generic-deploy.sh ena-example 1.0.0 8080 /example
+./generic-deploy.sh ena-example 1.0.0 1234 example
 ```
 The script then does the following:
 * Downloads the correct version of the jar from Artifactory.
@@ -444,6 +457,110 @@ It takes three parameters
 For example to start the ena-example application in test configuration use:
 ```bash
 ./generic-control.sh ena-example test
+```
+
+## Gradle Configuration
+We configure the [build.gradle](example/build.gradle) file to call the [Deployment Script](#deployment-script) script on each server using the [SSH Plugin](#ssh-plugin).
+
+*Step 1* We add a block to define all the remote servers. It is assumed that the local machine is configured with an ssh key capabable of logging into each server.
+```groovy
+remotes {
+    dev {
+        host = 'ves-ebi-5b'
+        user = 'ena_adm'
+        identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+    }
+    test {
+        host = 'ves-ebi-5a'
+        user = 'ena_adm'
+        identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+    }
+    prodA {
+        host = 'ves-hx-5a'
+        user = 'ena_adm'
+        identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+    }
+    prodB {
+        host = 'ves-hx-5b'
+        user = 'ena_adm'
+        identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+    }
+}
+```
+
+*Step 2* We then add tasks to call the [Deployment Script] on each server specifying the correct environment port and base url path.
+```groovy
+task deployToDev << {
+    ssh.run {
+        session(remotes.dev) {
+            execute "~/ena/generic-deploy.sh $project.name $version dev 1234 example"
+        }
+    }
+}
+
+task deployToTest << {
+    ssh.run {
+        session(remotes.test) {
+            execute "~/ena/generic-deploy.sh $project.name $version test 1234 example"
+        }
+    }
+}
+
+task deployToProd << {
+    ssh.run {
+        session(remotes.prodA) {
+            execute "~/ena/generic-deploy.sh $project.name $version prod 1234 example"
+        }
+    }
+    ssh.run {
+        session(remotes.prodB) {
+            execute "~/ena/generic-deploy.sh $project.name $version prod 1234 example"
+        }
+    }
+}
+```
+# Scripts
+It is useful to create a number of command line scripts to simplify the processes for developers.
+
+## Run Locally
+[run-locally.sh](example/run-locally.sh)
+```
+#!/usr/bin/env bash
+./gradlew bootRun
+```
+Runs the application locally using Spring Boot.
+
+## Run Locally
+[run-locally.sh](example/run-locally.sh)
+```bash
+#!/usr/bin/env bash
+./gradlew bootRun
+```
+Runs the application locally using Spring Boot.
+## Sonar
+```bash
+#!/usr/bin/env bash
+./gradlew clean build sonar
+```
+Performs Sonar inspections on the code.
+
+## Publish
+```bash
+#!/usr/bin/env bash
+./gradlew clean build publish
+```
+Builds the artifact and deploys to Artifactory.
+
+## Deploy
+There are also several deployment scripts which build, publish and deploy to an single environment.
+* [deploy-to-dev.sh](example/deploy-to-dev.sh)
+* [deploy-to-test.sh](example/deploy-to-test.sh)
+* [deploy-to-prod.sh](example/deploy-to-prod.sh)
+
+There is then a [deploy-all.sh](example/deploy-all.sh) that deploys to all environments.
+```bash
+#!/usr/bin/env bash
+./gradlew clean build sonar publish deployToDev deployToTest deployToProd
 ```
 
 # README.md

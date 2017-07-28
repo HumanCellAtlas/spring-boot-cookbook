@@ -65,3 +65,55 @@ processResources {
         expand(project.properties)
     }
 }
+
+remotes {
+    dev {
+        host = 'ves-ebi-5b'
+        user = 'ena_adm'
+        identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+    }
+    test {
+        host = 'ves-ebi-5a'
+        user = 'ena_adm'
+        identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+    }
+    prodA {
+        host = 'ves-hx-5a'
+        user = 'ena_adm'
+        identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+    }
+    prodB {
+        host = 'ves-hx-5b'
+        user = 'ena_adm'
+        identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+    }
+}
+
+task deployToDev << {
+    ssh.run {
+        session(remotes.dev) {
+            execute "~/ena/generic-deploy.sh $project.name $version dev 1234 example"
+        }
+    }
+}
+
+task deployToTest << {
+    ssh.run {
+        session(remotes.test) {
+            execute "~/ena/generic-deploy.sh $project.name $version test 1234 example"
+        }
+    }
+}
+
+task deployToProd << {
+    ssh.run {
+        session(remotes.prodA) {
+            execute "~/ena/generic-deploy.sh $project.name $version prod 1234 example"
+        }
+    }
+    ssh.run {
+        session(remotes.prodB) {
+            execute "~/ena/generic-deploy.sh $project.name $version prod 1234 example"
+        }
+    }
+}
