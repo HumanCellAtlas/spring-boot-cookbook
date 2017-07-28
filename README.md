@@ -35,10 +35,24 @@ This project sets out guidelines and recipies to enable Spring Boot based projec
       * [Graylog Logging Configuration](#graylog-logging-configuration)
 * [Multiple Profiles](#multiple-profiles)
 * [Deployment](#deployment)
+  * [Configuring ports and paths](#configuring-ports-and-paths)
   * [Deployment Script](#deployment-script)
   * [Execution Script](#execution-script)
+  * [Monit](#monit)
+* [ena-example](#ena-example)
+  * [Gradle Configuration](#gradle-configuration)
+* [Scripts](#scripts)
+  * [Run Locally](#run-locally)
+* [!/usr/bin/env bash](#!/usr/bin/env-bash)
+  * [Run Locally](#run-locally)
+* [!/usr/bin/env bash](#!/usr/bin/env-bash)
+  * [Sonar](#sonar)
+* [!/usr/bin/env bash](#!/usr/bin/env-bash)
+  * [Publish](#publish)
+* [!/usr/bin/env bash](#!/usr/bin/env-bash)
+  * [Deploy](#deploy)
+* [!/usr/bin/env bash](#!/usr/bin/env-bash)
 * [README.md](#readme.md)
-
 
 # Gradle
 
