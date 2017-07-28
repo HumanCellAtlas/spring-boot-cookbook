@@ -459,6 +459,19 @@ For example to start the ena-example application in test configuration use:
 ./generic-control.sh ena-example test
 ```
 
+## Monit
+Monit needs to be configured to be able to monitor the process of the application and start the application if it becomes unavaliable. For the example application the section to add to the .monitrc file on a dev server is:
+```
+# ena-example
+check process ena-example with pidfile /net/isilonP/public/rw/homes/ena_adm/ena/ena-example/ena-example.pid
+   group ena-example
+   start program = "/net/isilonP/public/rw/homes/ena_adm/ena/generic-control.sh start ena-example dev"
+   stop program = "/net/isilonP/public/rw/homes/ena_adm/ena/generic-control.sh stop ena-example dev"
+   if not exist then start
+   if failed host localhost port 1234 protocol http and request "/example" with timeout 10 seconds for 5 cycles
+       then restart
+```
+
 ## Gradle Configuration
 We configure the [build.gradle](example/build.gradle) file to call the [Deployment Script](#deployment-script) script on each server using the [SSH Plugin](#ssh-plugin).
 
