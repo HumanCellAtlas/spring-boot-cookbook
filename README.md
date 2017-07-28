@@ -326,9 +326,42 @@ dependencies {
 
 *Step 3*: Add the following line into [application.properties](example/src/main/resources/application.properties) to define the file name and path of the local logging file to store on the server.
 ```properties
-logging.file=logs/ena-<name>.log
+logging.file=logs/${project.name}.log
 ```
-Ideally the project.name would be used to populate the log file name automatically instead of having to specify it but this does not appear to work.
+
+*WARNING* The Spring Boot runner in Intellj does not process resources so ${project.name} is unpopulated causing logging to error. Please run at the command line using:
+```
+./gradlew bootRun
+```
+
+# Multiple Profiles
+Most projects will require different configuration when they are in development or deployed to the dev, test or prod servers. For this we use Spring profiles.
+
+We use create a application.properties file postfixed with the profile name for each profile:
+* [application-default.properties](example/src/main/resources/application-default.properties) - Used by default in development
+* [application-dev.properties](example/src/main/resources/application-dev.properties) - Deployed to development server
+* [application-test.properties](example/src/main/resources/application-test.properties) - Deployed to test server
+* [application-prod.properties](example/src/main/resources/application-prod.properties) - Deployed to production server
+
+In typical applications the applications.properties file for each profile may define environment specific database connection for example.
+
+In the example application we use them contain the following:
+
+```properties
+info.profile=test
+logging.level.root=WARN
+logging.level.org.springframework.web=WARN
+logging.level.uk.ac.ebi.ena=INFO
+``` 
+info.profile is used to show the environment when the application is shown in the [Spring Boot Admin](https://github.com/codecentric/spring-boot-admin) console.
+
+The logging level lines are used to define the logging levels for each environment. For example in development we may wish to have more verbose logging than in production.
+
+In the [application-default.properties](example/src/main/resources/application-default.properties) we also add the following line:
+```properties
+spring.boot.admin.auto-deregistration=true
+```
+This tells the Spring Boot Admin Server to remove the application from the list when it closes to stop the list becoming cluttered with closed, temporary instances of the application.
 
 # README.md
 The project must have a [README.md](example/README.md) file in the root directory. This should contain the following:
