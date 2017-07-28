@@ -2,6 +2,44 @@
 
 This project sets out guidelines and recipies to enable Spring Boot based projects developed within ENA to be consistent and easy to deploy and manage.
 
+* [Gradle](#gradle)
+  * [Basics](#basics)
+    * [Name](#name)
+    * [Group Name](#group-name)
+    * [Version](#version)
+    * [Source Compatibility](#source-compatibility)
+    * [Repositories](#repositories)
+  * [Plugins](#plugins)
+    * [Java Plugin](#java-plugin)
+    * [Jacoco Plugin](#jacoco-plugin)
+    * [Maven-publish Plugin](#maven-publish-plugin)
+    * [Spring Boot Plugin](#spring-boot-plugin)
+    * [SonarQube Plugin](#sonarqube-plugin)
+    * [SSH Plugin](#ssh-plugin)
+  * [Gradle Wrapper](#gradle-wrapper)
+  * [Dependencies](#dependencies)
+    * [Spring Boot Starter Web](#spring-boot-starter-web)
+    * [Spring Boot Starter Test](#spring-boot-starter-test)
+  * [Publication](#publication)
+    * [Manifest](#manifest)
+    * [sourceJar](#sourcejar)
+    * [Artifactory Publishing](#artifactory-publishing)
+  * [gradle.properties](#gradle.properties)
+* [Java Application](#java-application)
+  * [Application.java](#application.java)
+* [Monitoring](#monitoring)
+  * [Spring Boot Actuator](#spring-boot-actuator)
+  * [Spring Boot Admin Client](#spring-boot-admin-client)
+          * [Spring Boot Admin Client Configuration](#spring-boot-admin-client-configuration)
+* [Logging](#logging)
+      * [Graylog Logging Configuration](#graylog-logging-configuration)
+* [Multiple Profiles](#multiple-profiles)
+* [Deployment](#deployment)
+  * [Deployment Script](#deployment-script)
+  * [Execution Script](#execution-script)
+* [README.md](#readme.md)
+
+
 # Gradle
 
 ## Basics
