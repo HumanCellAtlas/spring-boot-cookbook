@@ -551,14 +551,6 @@ It is useful to create a number of command line scripts to simplify the processe
 
 ## Run Locally
 [run-locally.sh](example/run-locally.sh)
-```
-#!/usr/bin/env bash
-./gradlew bootRun
-```
-Runs the application locally using Spring Boot.
-
-## Run Locally
-[run-locally.sh](example/run-locally.sh)
 ```bash
 #!/usr/bin/env bash
 ./gradlew bootRun
