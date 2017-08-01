@@ -1,4 +1,4 @@
-package uk.ac.ebi.ena.example.config;
+package uk.ac.ebi.ena.example;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
