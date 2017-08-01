@@ -329,9 +329,13 @@ dependencies {
 
 Swagger then requires configuration in the application. An example is shown in [SwaggerConfig.java](example/src/main/uk/ac/ebi/ena/example/config/SwaggerConfig.java).
 
-One applied a generate interface will be available at swagger-ui.html at the root URL of the application. By default this will include all public end points so Spring management endpoints will be included as well as our own.
+One applied Swagger will generate a REST endpoint at /v2/api-docs and an interface will be available at /swagger-ui.html at the root URL of the application. 
 
-For example the example application has the Swagger UI available at [http://localhost:1234/example/swagger-ui.html](http://localhost:1234/example/swagger-ui.html).
+By default this will include all public end points so Spring management endpoints will be included as well as our own.
+
+For example the example application has:
+* A Swagger API endpoint available at [http://localhost:1234/example/v2/api-docs](http://localhost:1234/example/v2/api-docs).
+* A Swagger UI available at [http://localhost:1234/example/swagger-ui.html](http://localhost:1234/example/swagger-ui.html).
 
 A short tutotial covering more configuration options can be found [here](http://www.baeldung.com/swagger-2-documentation-for-spring-rest-api).
 
