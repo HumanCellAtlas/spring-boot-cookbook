@@ -36,6 +36,7 @@ This project sets out guidelines and recipies to enable Spring Boot based projec
 * [Logging](#logging)
       * [Graylog Logging Configuration](#graylog-logging-configuration)
 * [Multiple Profiles](#multiple-profiles)
+  * [Specifying Active Profile in Gradle](#specifying-active-profile-in-gradle)
 * [Deployment](#deployment)
   * [Configuring ports and paths](#configuring-ports-and-paths)
   * [Deployment Script](#deployment-script)
@@ -447,6 +448,22 @@ In the [application-default.properties](example/src/main/resources/application-d
 spring.boot.admin.auto-deregistration=true
 ```
 This tells the Spring Boot Admin Server to remove the application from the list when it closes to stop the list becoming cluttered with closed, temporary instances of the application.
+
+## Specifying Active Profile in Gradle
+
+When running an application from the command line using Gradle specifying the active profile as a parameter does not work as we may expect.
+
+For example the following may execute with the default profile instead of dev:
+
+```bash
+./gradlew bootRun -Dspring.profiles.active=dev
+```
+
+To enable Gradle to recognize the command line parameter add the following line in [build.gradle](example/build.gradle):
+
+```groovy
+bootRun.systemProperties = System.properties
+```
 
 # Deployment
 Deployment involves calling a script on the target server with parameter. Each server has on it two standard scripts.
