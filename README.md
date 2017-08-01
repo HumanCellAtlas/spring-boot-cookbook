@@ -54,6 +54,61 @@ This project sets out guidelines and recipies to enable Spring Boot based projec
   * [Deploy](#deploy)
 * [!/usr/bin/env bash](#!/usr/bin/env-bash)
 * [README.md](#readme.md)
+dulcinea:spring-boot-cookbook dvaughan$ ruby toc-generator.rb 
+* [ENA Spring Boot Microservices Cookbook](#ena-spring-boot-microservices-cookbook)
+* [Gradle](#gradle)
+  * [Basics](#basics)
+    * [Name](#name)
+    * [Group Name](#group-name)
+    * [Version](#version)
+    * [Source Compatibility](#source-compatibility)
+    * [Repositories](#repositories)
+  * [Plugins](#plugins)
+    * [Java Plugin](#java-plugin)
+    * [Jacoco Plugin](#jacoco-plugin)
+    * [Maven-publish Plugin](#maven-publish-plugin)
+    * [Spring Boot Plugin](#spring-boot-plugin)
+    * [SonarQube Plugin](#sonarqube-plugin)
+    * [SSH Plugin](#ssh-plugin)
+  * [Gradle Wrapper](#gradle-wrapper)
+  * [Dependencies](#dependencies)
+    * [Spring Boot Starter Web](#spring-boot-starter-web)
+    * [Spring Boot Starter Test](#spring-boot-starter-test)
+  * [Publication](#publication)
+    * [Manifest](#manifest)
+    * [sourceJar](#sourcejar)
+    * [Artifactory Publishing](#artifactory-publishing)
+  * [gradle.properties](#gradle.properties)
+* [Java Application](#java-application)
+  * [Application.java](#application.java)
+  * [ExitCodeGenerator](#exitcodegenerator)
+* [Documentation](#documentation)
+  * [Swagger 2](#swagger-2)
+* [Monitoring](#monitoring)
+  * [Spring Boot Actuator](#spring-boot-actuator)
+  * [Spring Boot Admin Client](#spring-boot-admin-client)
+          * [Spring Boot Admin Client Configuration](#spring-boot-admin-client-configuration)
+* [Logging](#logging)
+      * [Graylog Logging Configuration](#graylog-logging-configuration)
+* [Multiple Profiles](#multiple-profiles)
+  * [Specifying Active Profile in Gradle](#specifying-active-profile-in-gradle)
+* [Deployment](#deployment)
+  * [Configuring ports and paths](#configuring-ports-and-paths)
+  * [Deployment Script](#deployment-script)
+  * [Execution Script](#execution-script)
+  * [Monit](#monit)
+* [ena-example](#ena-example)
+  * [Gradle Configuration](#gradle-configuration)
+* [Scripts](#scripts)
+  * [Run Locally](#run-locally)
+* [!/usr/bin/env bash](#!/usr/bin/env-bash)
+  * [Sonar](#sonar)
+* [!/usr/bin/env bash](#!/usr/bin/env-bash)
+  * [Publish](#publish)
+* [!/usr/bin/env bash](#!/usr/bin/env-bash)
+  * [Deploy](#deploy)
+* [!/usr/bin/env bash](#!/usr/bin/env-bash)
+* [README.md](#readme.md)
 
 # Gradle
 
@@ -309,7 +364,21 @@ public class Application {
 
 }
 ```
+## ExitCodeGenerator
 
+If you want to use [ExitCodeGenerator](http://docs.spring.io/autorepo/docs/spring-boot/current/api/org/springframework/boot/ExitCodeGenerator.html) or lifecycle annotations such as @PreDestroy to cleanup resources (e.g. thread pools), then Spring Boot needs to manage the application exit process.
+
+We can enable this by adding SpringApplication.exit:
+
+```java
+public static void main(String[] args) throws Exception {
+    SpringApplication springApplication = new SpringApplication(Application.class);
+    springApplication.addListeners(new ApplicationPidFileWriter(PID_FILE));
+    SpringApplication.exit(springApplication.run(args));
+}
+```
+
+This is particularly important for LSF processes, cron jobs, or command-line based applications.
 
 # Documentation
 Any APIs must provide documentation. One way of doing this is using Swagger.
