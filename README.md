@@ -397,7 +397,7 @@ dependencies {
 }
 ```
 
-Swagger then requires configuration in the application. An example is shown in [SwaggerConfig.java](example/src/main/uk/ac/ebi/ena/example/config/SwaggerConfig.java).
+Swagger then requires configuration in the application. An example is shown in [SwaggerConfig.java](example/src/main/java/uk/ac/ebi/ena/example/SwaggerConfig.java).
 
 One applied Swagger will generate a REST endpoint at /v2/api-docs and an interface will be available at /swagger-ui.html at the root URL of the application. 
 
@@ -662,6 +662,19 @@ task deployToProd << {
     }
 }
 ```
+
+# Continuous Integration
+All projects should support Continuous Integration to ensure the code that is pushed to git builds correctly and passes all test.
+
+For private projects we use our internal [Jenkins server](http://ena-dev:8080/jenkins) to checkout and build the project after each push.
+
+For public projects we can use [Travis](https://travis-ci.org), a web based CI service.
+
+## Configuring Travis
+Travis requires a file named .travis.yml in the root of the project. This tells Travis information need to build the projec such as the language used.
+
+An example is [.travis,yml](.travis.yml)
+
 # Scripts
 It is useful to create a number of command line scripts to simplify the processes for developers.
 

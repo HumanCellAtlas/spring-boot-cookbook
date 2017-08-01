@@ -87,4 +87,5 @@ gradle-app.setting
 /logs/
 /ena-example.pid
 /example/logs/
-/toc-generator.rb
+/tools/toc-generator.rb
+/tools/
