@@ -309,6 +309,32 @@ public class Application {
 }
 ```
 
+
+# Documentation
+Any APIs must provide documentation. One way of doing this is using Swagger.
+
+## Swagger 2
+[Swagger](https://swagger.io/) generates a webpages for documenting and testing a REST API.
+
+It has two dependencies, one provides a REST endpoint for documentation and the other a standard UI on top of it.
+
+Add these dependencies into the dependencies block in [build.gradle](example/build.gradle).
+
+```groovy
+dependencies {
+    compile('io.springfox:springfox-swagger2:2.+')
+    compile('io.springfox:springfox-swagger-ui:2.+')
+}
+```
+
+Swagger then requires configuration in the application. An example is shown in [SwaggerConfig.java](example/src/main/uk/ac/ebi/ena/example/config/SwaggerConfig.java).
+
+One applied a generate interface will be available at swagger-ui.html at the root URL of the application. By default this will include all public end points so Spring management endpoints will be included as well as our own.
+
+For example the example application has the Swagger UI available at [http://localhost:1234/example/swagger-ui.html](http://localhost:1234/example/swagger-ui.html).
+
+A short tutotial covering more configuration options can be found [here](http://www.baeldung.com/swagger-2-documentation-for-spring-rest-api)
+
 # Monitoring
 
 ## Spring Boot Actuator
