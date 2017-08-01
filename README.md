@@ -333,7 +333,7 @@ One applied a generate interface will be available at swagger-ui.html at the roo
 
 For example the example application has the Swagger UI available at [http://localhost:1234/example/swagger-ui.html](http://localhost:1234/example/swagger-ui.html).
 
-A short tutotial covering more configuration options can be found [here](http://www.baeldung.com/swagger-2-documentation-for-spring-rest-api)
+A short tutotial covering more configuration options can be found [here](http://www.baeldung.com/swagger-2-documentation-for-spring-rest-api).
 
 # Monitoring
 
