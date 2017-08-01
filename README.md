@@ -675,6 +675,16 @@ Travis requires a file named .travis.yml in the root of the project. This tells 
 
 An example is [.travis,yml](.travis.yml)
 
+There are more examples of how to configure Java project builds in Travis on the [Travis Website](https://docs.travis-ci.com/user/languages/java/#Projects-Using-Gradle).
+
+## Displaying Build Status in README.md
+Once Travis is setup Travis provides a build status icon that can be added to the README.md. This is very useful for showing the status of the build to other developers.
+
+Here is an example for this project:
+[![Build Status](https://travis-ci.org/enasequence/spring-boot-cookbook.svg?branch=master)](https://travis-ci.org/enasequence/spring-boot-cookbook)
+
+The build indicator should be included at the top of [README.md](example/README.md)
+
 # Scripts
 It is useful to create a number of command line scripts to simplify the processes for developers.
 
