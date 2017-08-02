@@ -570,7 +570,7 @@ cat ~/.ssh/id_rsa.pub
 You can now test your ssh login (in this case for ves-ebi-5b) using:
 
 ```bash
-    ssh ena_adm@ves-ebi-5b
+ssh ena_adm@ves-ebi-5b
 ```
 
 If you are not prompted for a password yet login successfully your ssh key is correctly set up and you are ready to run deployment scripts.
