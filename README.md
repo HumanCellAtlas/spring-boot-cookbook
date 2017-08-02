@@ -550,6 +550,31 @@ This sets the application to run on port 1234 and to have a base url of /example
 If this was run locally the web address would be:
 [http://localhost:1234/example](http://localhost:1234/example)
 
+## SSH Keys
+As deployment relies on calling a script on a remote server you need to have SSH keys set up on your local machine and the server.
+ 
+*Step 1* - Generate an SSH key (public-private key pair) on your local machine if you don't already have one.
+ 
+This is done with this command:
+```bash
+ssh-keygen -t rsa -b 4096 -N "" -f ~/.ssh/id_rsa
+```
+
+*Step 2* - Take the public part of your key
+```bash
+cat ~/.ssh/id_rsa.pub
+```
+
+*Step 3* - Log onto each server you wish to use for deployment as user ena_adm and append your public key to ~/.ssh/authorized_keys
+
+You can now test your ssh login (in this case for ves-ebi-5b) using:
+
+```bash
+    ssh ena_adm@ves-ebi-5b
+```
+
+If you are not prompted for a password yet login successfully your ssh key is correctly set up and you are ready to run deployment scripts.
+
 ## Deployment Script
 [generic-deploy.sh](server-scripts/generic-deploy.sh) 
 This script may be called on the server from deploying previous versions but it would normally be called by the deploy tasks in Gradle.
