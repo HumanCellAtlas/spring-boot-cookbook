@@ -253,6 +253,22 @@ task wrapper(type: Wrapper) {
 }
 ```
 
+## Global Gradle Properties
+Gradle uses a properties file in your home directory under .gradle/gradle.properties. This provides global gradle properties and is the place to put user specific credentials.
+
+We use this for Artifactory and Sonar server passwords. Please create your own file from this template replacing user names and passwords where appropriate.
+
+```properties
+org.gradle.daemon=true
+
+artifactoryUsername=<your artifactory username>
+artifactoryPassword=<your artifactory password>
+
+systemProp.sonar.host.url=http://ena-dev:9000
+systemProp.sonar.login=<your sonar username>
+systemProp.sonar.password=<your sonar password> 
+```
+
 ## Dependencies
 [Spring Boot Starters](https://github.com/spring-projects/spring-boot/tree/master/spring-boot-starters) are bundles of dependencies that make it more straight forward to get the correct dependencies for a Spring Boot project. We typically use the following bundles.
 
