@@ -482,6 +482,9 @@ processResources {
     }
 }
 ```
+
+More detailed internal documentation on the Spring Boot Admin server can be found on our internal [Confluence](https://www.ebi.ac.uk/seqdb/confluence/display/EMBL/Centralised+Logging+and+Monitoring).
+
 # Logging
 We have a [Graylog server](http://ena-log:9000/search) that acts a a repository for all our log messages so we can have a single view into the workings of the whole system.
 
@@ -504,6 +507,8 @@ logging.file=logs/${project.name}.log
 ```
 ./gradlew bootRun
 ```
+
+More detailed internal documentation on our Graylog Server can be found on our internal [Confluence](https://www.ebi.ac.uk/seqdb/confluence/display/EMBL/Centralised+Logging+and+Monitoring).
 
 # Multiple Profiles
 Most projects will require different configuration when they are in development or deployed to the dev, test or prod servers. For this we use Spring profiles.
