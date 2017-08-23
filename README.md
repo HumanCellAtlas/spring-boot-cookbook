@@ -658,21 +658,25 @@ remotes {
         host = 'ves-ebi-5b'
         user = 'ena_adm'
         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+	knownHosts = allowAnyHosts
     }
     test {
         host = 'ves-ebi-5a'
         user = 'ena_adm'
         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+	knownHosts = allowAnyHosts
     }
     prodA {
         host = 'ves-hx-5a'
         user = 'ena_adm'
         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+	knownHosts = allowAnyHosts
     }
     prodB {
         host = 'ves-hx-5b'
         user = 'ena_adm'
         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+	knownHosts = allowAnyHosts
     }
 }
 ```
