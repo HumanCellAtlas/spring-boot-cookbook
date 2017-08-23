@@ -632,7 +632,7 @@ It takes three parameters
 
 For example to start the ena-example application in test configuration use:
 ```bash
-./generic-control.sh ena-example test
+./generic-control.sh start ena-example test
 ```
 
 ## Monit
