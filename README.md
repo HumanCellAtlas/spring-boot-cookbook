@@ -226,7 +226,7 @@ It is added to the plugin block of [build.gradle](example/build.gradle) with:
 
 ```groovy
 plugins {
-	id 'org.sonarqube" version '2.5'
+	id 'org.sonarqube' version '2.5'
 }
 ```
 To use SonarQube further configuration is required in a local [gradle.properties](example/gradle.properties) file.
