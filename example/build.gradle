@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '1.5.4.RELEASE'
+    id 'org.springframework.boot' version '1.5.6.RELEASE'
     id 'org.sonarqube' version '2.5'
     id 'org.hidetake.ssh' version '2.7.0'
 }
@@ -18,7 +18,7 @@ apply plugin: 'jacoco'
 apply plugin: 'maven-publish'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.0.2'
+    gradleVersion = '4.1'
 }
 
 bootRun.systemProperties = System.properties

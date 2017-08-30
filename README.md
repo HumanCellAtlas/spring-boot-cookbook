@@ -249,7 +249,7 @@ It is added as a block in [build.gradle](example/build.gradle) with:
 
 ```groovy
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.0.2'
+    gradleVersion = '4.1'
 }
 ```
 
