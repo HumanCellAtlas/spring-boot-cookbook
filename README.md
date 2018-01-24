@@ -120,26 +120,26 @@ For this reason it is important to specifically declare the project name in sett
 The project name should be in the format:
 
 `
-ena-<name>
+ingest-<name>
 `
 
 In [settings.gradle](example/settings.gradle) the project name is specified by:
 
 ```groovy
-rootProject.name ='ena-example'
+rootProject.name ='ingest-example'
 ```
 
 ### Group Name
 The group name should be in the format:
 
 `
-uk.ac.ebi.ena.<project-name>
+org.humancellatlas.ingest.<project-name>
 `
 
 For example a project with the name ena-example has the group name set in [build.gradle](example/build.gradle) as follows:
 
 ```groovy
-group = 'uk.ac.ebi.ena.ena-example'
+group = 'org.humancellatlas.ingest.ingest-example'
 ```
 
 ### Version
@@ -152,24 +152,23 @@ version = '1.0.0'
 ```
 
 ### Source Compatibility
-All projects need to compiled to support Java 8 and be able to run on a JDK 1.8 VM. Therefore we need to add the sourceCompatibility option to [build.gradle](example/build.gradle):
+All projects need to compiled to support Java 9 and be able to run on a JDK 9 VM. Therefore we need to add the sourceCompatibility option to [build.gradle](example/build.gradle):
 
 ```groovy
-sourceCompatibility = 1.8
+sourceCompatibility = 9
 ```
 
 ### Repositories
-We have our own internal [Artifactory Server](http://ena-dev:8081/artifactory) that provides both our own internal artifacts and keeps a cache of those from public Maven repositories.
+We do not current have our own internal Maven repositories so use Maven Central as a default
 
-Instead of referring to external repositories such as Maven Central directly always specify the our Artifactory server as the repository as it means that all artifacts are cached.
-Also add mavenLocal() as the first repository to check as then once you have the artifacts downloaded on your local machine Gradle will use those first before going to Artifactory.
+Also add mavenLocal() as the first repository to check as then once you have the artifacts downloaded on your local machine Gradle will use those first before going to Maven Central.
 
 The repository block in [build.gradle](example/build.gradle) will look like this:
 
 ```groovy
 repositories {
 	mavenLocal()
-	maven{ url "http://ena-dev:8081/artifactory/all" }
+	mavenCentral()
 }
 ```
 

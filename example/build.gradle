@@ -4,9 +4,9 @@ plugins {
     id 'org.hidetake.ssh' version '2.7.0'
 }
 
-group = 'uk.ac.ebi.ena.ena-example'
+group = 'org.humancellatlas.ingest.ingest-example'
 version = '1.0.0'
-sourceCompatibility = 1.8
+sourceCompatibility = 9
 
 repositories {
     mavenLocal()
