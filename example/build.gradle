@@ -18,7 +18,7 @@ apply plugin: 'jacoco'
 apply plugin: 'maven-publish'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.1'
+    gradleVersion = '4.4.1'
 }
 
 bootRun.systemProperties = System.properties
